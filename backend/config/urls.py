@@ -10,4 +10,6 @@ urlpatterns = [
     path('api/recommendations/', include('recommendations.urls')),
     path('api/community/', include('community.urls')),
     path('api/exchanges/', include('exchanges.urls')),
+    path('api/chatbot/', include('chatbot.urls')),
+    path('api/maps/', include('maps.urls')),
 ]

@@ -20,6 +20,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 FSS_API_KEY = os.getenv('FSS_API_KEY')
+EXCHANGE_API_KEY = os.getenv('EXCHANGE_API_KEY')
+KAKAO_REST_API_KEY = os.getenv('KAKAO_REST_API_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -52,6 +54,8 @@ INSTALLED_APPS = [
     'recommendations',
     'community',
     'exchanges',
+    'chatbot',
+    'maps',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +142,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
