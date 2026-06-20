@@ -1,15 +1,17 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <div>
-    <nav>
-      <RouterLink to="/">홈</RouterLink>
-      |
-      <RouterLink to="/products">정기예금 상품</RouterLink>
-    </nav>
+    <NavBar />
 
-    <RouterView />
+    <main>
+      <RouterView />
+    </main>
+
+    <ChatBotButton />
   </div>
 </template>
+
+<script setup>
+import { RouterView } from 'vue-router'
+import NavBar from '@/components/NavBar.vue'
+import ChatBotButton from '@/components/ChatBotButton.vue'
+</script>

@@ -1,5 +1,5 @@
 <template>
   <div>
-    <h1>홈</h1>
+    <h1>회원가입</h1>
   </div>
 </template>
