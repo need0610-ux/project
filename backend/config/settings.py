@@ -23,6 +23,14 @@ FSS_API_KEY = os.getenv('FSS_API_KEY')
 EXCHANGE_API_KEY = os.getenv('EXCHANGE_API_KEY')
 KAKAO_REST_API_KEY = os.getenv('KAKAO_REST_API_KEY')
 
+GMS_API_KEY = os.getenv('GMS_API_KEY')
+GMS_BASE_URL = os.getenv(
+    'GMS_BASE_URL',
+    'https://gms.ssafy.io/gmsapi/api.openai.com/v1/'
+)
+GMS_MODEL = os.getenv('GMS_MODEL', 'gpt-5-nano')
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -149,3 +157,4 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+

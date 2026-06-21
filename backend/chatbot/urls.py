@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.chatbot_response),
+    path('explain/', views.chatbot_response),
 ]
