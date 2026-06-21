@@ -45,17 +45,23 @@ def favorite_toggle(request, product_id):
 
     if favorite:
         favorite.delete()
-        return Response({
-            'message': '관심상품에서 삭제되었습니다.',
-            'is_favorite': False
-        })
+        return Response(
+            {
+                'message': '관심상품에서 삭제되었습니다.',
+                'is_favorite': False
+            },
+            status=status.HTTP_200_OK
+        )
 
     FavoriteProduct.objects.create(
         user=request.user,
         product=product
     )
 
-    return Response({
-        'message': '관심상품에 추가되었습니다.',
-        'is_favorite': True
-    }, status=status.HTTP_201_CREATED)
+    return Response(
+        {
+            'message': '관심상품에 추가되었습니다.',
+            'is_favorite': True
+        },
+        status=status.HTTP_201_CREATED
+    )

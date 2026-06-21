@@ -1,126 +1,158 @@
 <template>
-  <div class="product-card">
-    <div class="card-header">
-      <p class="bank-name">{{ bankName }}</p>
-      <h3 class="product-name">{{ productName }}</h3>
+  <article class="product-card">
+    <div class="logo-box">로고</div>
+
+    <div class="product-main">
+      <p class="bank-name">{{ product.bankName }}</p>
+      <h4>{{ product.productName }}</h4>
     </div>
 
-    <div class="rate-box">
+    <div class="product-meta">
       <div>
-        <span class="label">기본 금리</span>
-        <strong>{{ baseRate }}%</strong>
+        <span>최고 금리</span>
+        <strong>{{ product.maxRate }}</strong>
       </div>
       <div>
-        <span class="label">최고 금리</span>
-        <strong>{{ maxRate }}%</strong>
+        <span>가입 기간</span>
+        <strong>{{ product.term }}</strong>
+      </div>
+      <div>
+        <span>가입 방식</span>
+        <strong>{{ product.joinWay }}</strong>
       </div>
     </div>
 
-    <p class="description">
-      {{ description }}
-    </p>
+    <div class="product-actions">
+      <button type="button" class="favorite-btn" @click="$emit('toggle-favorite', product)">
+        관심
+      </button>
 
-    <button class="detail-button">
-      자세히 보기
-    </button>
-  </div>
+      <RouterLink :to="`/products/${product.id}`" class="detail-btn">
+        상세보기
+      </RouterLink>
+    </div>
+  </article>
 </template>
 
 <script setup>
+import { RouterLink } from 'vue-router'
+
 defineProps({
-  bankName: {
-    type: String,
-    default: '은행명',
-  },
-  productName: {
-    type: String,
-    default: '상품명',
-  },
-  baseRate: {
-    type: [String, Number],
-    default: '0.00',
-  },
-  maxRate: {
-    type: [String, Number],
-    default: '0.00',
-  },
-  description: {
-    type: String,
-    default: '상품 설명이 들어갑니다.',
+  product: {
+    type: Object,
+    required: true,
   },
 })
+
+defineEmits(['toggle-favorite'])
 </script>
 
 <style scoped>
 .product-card {
-  width: 100%;
-  padding: 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: grid;
+  grid-template-columns: 72px minmax(180px, 1fr) auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px;
+  border: 1px solid #bfbfbf;
+  background-color: #fff;
 }
 
-.card-header {
-  margin-bottom: 16px;
+.logo-box {
+  width: 60px;
+  height: 44px;
+  border: 1px solid #bfbfbf;
+  background-color: #e6e6e6;
+  color: #555;
+  font-size: 13px;
+  line-height: 44px;
+  text-align: center;
 }
 
 .bank-name {
   margin: 0 0 6px;
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.product-name {
-  margin: 0;
-  font-size: 20px;
-  color: #111827;
-}
-
-.rate-box {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.rate-box div {
-  flex: 1;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #f3f4f6;
-}
-
-.label {
-  display: block;
-  margin-bottom: 4px;
+  color: #777;
   font-size: 13px;
-  color: #6b7280;
 }
 
-strong {
-  font-size: 18px;
-  color: #2563eb;
+.product-main h4 {
+  margin: 0;
+  font-size: 15px;
 }
 
-.description {
-  margin-bottom: 16px;
-  font-size: 14px;
-  color: #374151;
-  line-height: 1.5;
+.product-meta {
+  display: flex;
+  gap: 22px;
 }
 
-.detail-button {
-  width: 100%;
-  padding: 10px 0;
-  border: none;
-  border-radius: 10px;
-  background-color: #2563eb;
-  color: white;
-  font-weight: 600;
+.product-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 60px;
+}
+
+.product-meta span {
+  color: #666;
+  font-size: 13px;
+}
+
+.product-meta strong {
+  font-size: 15px;
+}
+
+.product-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.favorite-btn,
+.detail-btn {
+  padding: 8px 12px;
+  border: 1px solid #999;
+  background-color: #fff;
+  color: #222;
+  font-size: 13px;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.detail-button:hover {
-  background-color: #1d4ed8;
+.favorite-btn:hover,
+.detail-btn:hover {
+  background-color: #f2f2f2;
+}
+
+@media (max-width: 900px) {
+  .product-card {
+    grid-template-columns: 60px 1fr;
+  }
+
+  .product-meta,
+  .product-actions {
+    grid-column: 1 / -1;
+  }
+
+  .product-meta {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 520px) {
+  .product-card {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-box {
+    width: 100%;
+  }
+
+  .product-actions {
+    flex-direction: column;
+  }
+
+  .favorite-btn,
+  .detail-btn {
+    text-align: center;
+  }
 }
 </style>

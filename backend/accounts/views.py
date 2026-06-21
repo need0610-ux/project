@@ -1,8 +1,9 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 
 from .serializers import SignupSerializer, UserSerializer
 
@@ -45,10 +46,12 @@ def login_user(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    login(request, user)
+    # 수정 부분: 세션 로그인 제거
+    token, created = Token.objects.get_or_create(user=user)
 
     return Response({
         'message': '로그인되었습니다.',
+        'token': token.key,
         'user': UserSerializer(user).data
     })
 
